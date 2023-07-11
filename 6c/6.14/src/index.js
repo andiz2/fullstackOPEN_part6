@@ -10,9 +10,9 @@ import anecdoteReducer, {setAnecdotes} from './reducers/anecdoteReducer'
 
 
 console.log('store', store.getState())
-anecdoteService.getAll().then(anecdotes =>
-  store.dispatch(setAnecdotes(anecdotes))
-)
+//anecdoteService.getAll().then(anecdotes =>
+//  store.dispatch(setAnecdotes(anecdotes))
+//)
 
 //store.dispatch(filterReducer('IMPORTANT'))
 //store.dispatch(createAnecdote('combineReducers forms one reducer from many simple reducers'))

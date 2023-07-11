@@ -1,4 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit'
+import anecdoteService from '../services/anecdotes'
 
 const anecdotesAtStart = [
   'If it hurts, do it more often',
@@ -24,7 +25,7 @@ const initialState = anecdotesAtStart.sort((a, b) => b.votes - a.votes).map(asOb
 const anecdoteSlice = createSlice({
   name: 'anecdotes',
   initialState: [],
-  reducers: {
+  reducers: {/*
     createAnecdote(state, action) {
       const content = action.payload
       state.push({
@@ -43,7 +44,7 @@ const anecdoteSlice = createSlice({
       console.log('reducer', JSON.parse(JSON.stringify(state)))
       return state.map(anecdote => 
         anecdote.id !== idA ? anecdote: changedAnecdote)
-    },
+    },*/
     appendAnecdote(state, action) {
       state.push(action.payload)
     },
@@ -52,6 +53,7 @@ const anecdoteSlice = createSlice({
     }
   }
 })
+
 
 //!!!!!!!!!!!!!!!!!!!!!!! -------------- OLD REDUCER ------------------ !!!!!!!!!!!!!!!!!!!!!!!//
 
@@ -96,6 +98,31 @@ const anecdoteSlice = createSlice({
 //   }
 // }
 //////////////////////////////////////////////////////////////////////////////////////////////
+export const { appendAnecdote, setAnecdotes} = anecdoteSlice.actions
 
-export const {createAnecdote, voteOf, appendAnecdote, setAnecdotes} = anecdoteSlice.actions
+export const initializeAnecdotes = () => {
+  return async dispatch => {
+    const anecdotes = await anecdoteService.getAll()
+
+    dispatch(setAnecdotes(anecdotes))
+  }
+}
+
+export const voteOf = action => {
+  return async dispatch => {
+    const anecdotes = await anecdoteService.voteAnec(action)
+    console.log('anec din reducer cu voteof', anecdotes)
+    const anecdotes2 = await anecdoteService.getAll()
+    console.log('anec din reducer cu getAll', anecdotes2)
+    dispatch(setAnecdotes(anecdotes2)) //cu setAnecdotes?
+  }
+}
+
+export const createAnecdote = content => {
+  return async dispatch => {
+    const newAnecdote = await anecdoteService.createNew(content)
+    dispatch(appendAnecdote(newAnecdote))
+  }
+}
+
 export default anecdoteSlice.reducer
