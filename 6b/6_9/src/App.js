@@ -3,16 +3,16 @@ import AnecdoteList from './components/AnecdoteList'
 import Filter from './components/Filter'
 
 const App = () => {
+ 
 
   return (
     <div>
-     <Filter />
-     <AnecdoteList/>
-     <AnecdoteForm />
+      <h2>Anecdotes</h2>
+      <Filter/>
+      <AnecdoteList />
+      <AnecdoteForm />                                    
     </div>
   )
 }
 
 export default App
-
-

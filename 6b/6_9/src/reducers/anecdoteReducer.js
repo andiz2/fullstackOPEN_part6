@@ -1,5 +1,3 @@
-//import { createSlice } from '@reduxjs/toolkit'
-
 const anecdotesAtStart = [
   'If it hurts, do it more often',
   'Adding manpower to a late software project makes it later!',
@@ -18,81 +16,79 @@ const asObject = (anecdote) => {
     votes: 0
   }
 }
-
-const initialState = anecdotesAtStart.sort((a, b) => b.votes - a.votes).map(asObject)
-
-//6.10 and more
-/*
-const anecdoteSlice = createSlice({
-  name: 'anecdotes',
-  initialState,
-  reducers: {
-    createAnecdote(state, action) {
-      const content = action.payload
-      state.push({
-        content,
-        id: getId(),
-        votes: 0
-      })
-    },
-    voteOf(state, action) {
-      const idA = action.payload
-      const anecdoteToChange = state.find( a => a.id === idA)
-      const changedAnecdote = {
-        ...anecdoteToChange,
-        votes: anecdoteToChange.votes + 1
-      }
-      console.log('reducer', JSON.parse(JSON.stringify(state)))
-      return state.map(anecdote => 
-        anecdote.id !== idA ? anecdote: changedAnecdote)
+export const createAnec = (content) => {
+  return {
+    type: 'NEW_ANEC',
+    payload: {
+      content,
+      votes: 0,
+      id: getId()
     }
-  }
-})
-*/
-
-//!!!!!!!!!!!!!!!!!!!!!!! -------------- OLD REDUCER ------------------ !!!!!!!!!!!!!!!!!!!!!!!//
-
-const reducer = (state = initialState, action) => {
-  console.log('state now: ', state)
-  console.log('action', action)
-  switch(action.type){
-  case 'VOTE':
-    const id = action.payload.id
-    const anecdoteToChange = state.find(a => a.id === id)
-    const changedAnecdote = {
-      ...anecdoteToChange,
-      votes: anecdoteToChange.votes + 1
-    }
-    return state.map(anecdote => 
-      anecdote.id !== id ? anecdote : changedAnecdote )
-  case 'NEW_ANECDOTE':
-    return [...state, action.payload]
-
-  default:
-    return state
   }
 }
-/////////////////////////////////////////////////////////////////////////////////////////////////
 
-//////////////////////////////-----------------ACTIONS----------------!!!!!!!!?//////////////////
-export const voteOf = (id) => {
+export const voteAnec = (id) => {
   return {
-    type: 'VOTE',
+    type: 'VOTE_ANEC',
     payload: {id}
   }
 }
 
-export const createAnecdote = (content) => {
-  return {
-    type: 'NEW_ANECDOTE',
-      payload: {
-        content,
-        votes: 0,
-        id: getId()
-      }
+//const initialState = anecdotesAtStart.map(asObject)
+
+const initialState = [
+  {
+      "content": "If it hurts, do it more often",
+      "id": "9794",
+      "votes": 0
+  },
+  {
+      "content": "Adding manpower to a late software project makes it later!",
+      "id": "79262",
+      "votes": 0
+  },
+  {
+      "content": "The first 90 percent of the code accounts for the first 90 percent of the development time...The remaining 10 percent of the code accounts for the other 90 percent of the development time.",
+      "id": "51696",
+      "votes": 0
+  },
+  {
+      "content": "Any fool can write code that a computer can understand. Good programmers write code that humans can understand.",
+      "id": "24751",
+      "votes": 0
+  },
+  {
+      "content": "Premature optimization is the root of all evil.",
+      "id": "62053",
+      "votes": 0
+  },
+  {
+      "content": "Debugging is twice as hard as writing the code in the first place. Therefore, if you write the code as cleverly as possible, you are, by definition, not smart enough to debug it.",
+      "id": "57880",
+      "votes": 0
   }
+]
+
+const anecdoteReducer = (state = initialState, action) => {
+  console.log('state now: ', state)
+  console.log('action', action)
+  switch(action.type){
+    case 'NEW_ANEC':
+      return state.concat({...action.payload, id: getId()})
+    case 'VOTE_ANEC':
+      let voteToChange = state.find(n => n.id === action.payload.id)
+      console.log('voteToChange app', voteToChange)
+      voteToChange = {...voteToChange, votes: voteToChange.votes + 1}
+      console.log('voteToChange app2', voteToChange)
+      console.log('state', state)
+      return state.map(anec => 
+        anec.id !== action.payload.id ? anec : voteToChange
+        )
+        
+  }
+
+  return state
 }
-//////////////////////////////////////////////////////////////////////////////////////////////
 
 
-export default reducer
+export default anecdoteReducer
