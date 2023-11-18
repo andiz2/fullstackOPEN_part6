@@ -1,3 +1,5 @@
+import {createSlice} from '@reduxjs/toolkit'
+
 const notificationSlice = createSlice({
     name: "notification",
     initialState: null,
@@ -18,7 +20,7 @@ export const setNotification = (content, delay) => {
       dispatch(notify(content))
       setTimeout(() => {
         dispatch(reset())
-      }, delay * 2000
+      }, delay * 2000)
     }
 }
 
