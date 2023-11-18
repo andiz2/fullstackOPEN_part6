@@ -16,8 +16,7 @@ const store = createStore(reducer)
 
 console.log('main state', store.getState())
 store.subscribe(() => console.log('main sub', store.getState()))
-store.dispatch(filterChange('asd'))
-store.dispatch(createAnec('combineReducers forms one reducer from many simple reducers'))
+
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <Provider store={store}>

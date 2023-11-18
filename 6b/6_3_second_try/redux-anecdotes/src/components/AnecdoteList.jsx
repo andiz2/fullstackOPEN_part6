@@ -14,10 +14,11 @@ const Anecdote = ({anecdote, handleVote}) => {
 const AnecdoteList = () => {
 
     const anecdotes = useSelector(state => {
+      console.log('-----filter anc firstt', state.filter)
       if(state.filter === "ALL") {
         return state.anecdotes
       }
-      return state.filter === '' || typeof state.filter === 'undefined'
+      return (state.filter.length > 0 )
         ? state.anecdotes.filter(el => el.content.toLowerCase().includes(state.filter.toLowerCase())) 
         : state.anecdotes
      
