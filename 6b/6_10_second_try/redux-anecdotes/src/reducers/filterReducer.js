@@ -6,7 +6,9 @@ const filterSlice = createSlice({
   reducers: {
     filterChange(state, action) {
       console.log('und state?', action.type)
-       return action.type === 'SET_FILTER' ? action.payload : state
+	//no need to check for SET_FILTER anymore because in 6.10 action is in reducer already
+       //return action.type === 'SET_FILTER' ? action.payload : state
+	return action.payload
     }
   }
 })
