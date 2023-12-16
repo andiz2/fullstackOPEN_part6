@@ -4,6 +4,7 @@ import {filterChange} from '../reducers/filterReducer'
 const Filter = (props) => {
     const dispatch = useDispatch()
     const anecdotes = useSelector(state => state.anecdotes)
+    console.log('anecdotes filter', anecdotes)
 
     const handleChange = (event) => {
       // input-field value is in variable event.target.value

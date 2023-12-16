@@ -3,6 +3,7 @@ import {voteAnec, createAnec} from './reducers/anecdoteReducer'
 import AnecdoteForm from './components/AnecdoteForm'
 import AnecdoteList from './components/AnecdoteList'
 import Filter from './components/Filter'
+import Notification from './components/Notification'
 
 const App = () => {
   const anecdotes = useSelector(state => state)
@@ -16,6 +17,7 @@ const App = () => {
 
   return (
     <div>
+      <Notification />
       <Filter />
       <AnecdoteList />
       <AnecdoteForm />

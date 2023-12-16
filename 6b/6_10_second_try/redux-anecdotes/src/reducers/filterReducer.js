@@ -2,18 +2,16 @@ import { createSlice } from '@reduxjs/toolkit'
 
 const filterSlice = createSlice({
   name: 'filter',
-  initialState: [],
+  initialState: '',
   reducers: {
     filterChange(state, action) {
       console.log('und state?', action.type)
-	//no need to check for SET_FILTER anymore because in 6.10 action is in reducer already
-       //return action.type === 'SET_FILTER' ? action.payload : state
-	return action.payload
+       return action.payload
     }
   }
 })
 
-export const {filterChange} = filterSlice.actions
+export const { filterChange } = filterSlice.actions
 export default filterSlice.reducer
 
 /*

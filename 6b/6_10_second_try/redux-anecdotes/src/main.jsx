@@ -1,7 +1,7 @@
 import ReactDOM from 'react-dom/client'
 import { createStore, combineReducers } from 'redux'
 import { Provider } from 'react-redux'
-import store from './reducers/store'
+import {store} from './reducers/store'
 
 import App from './App'
 //code <6.10
@@ -31,6 +31,7 @@ const store = configureStore({
 //const store = createStore(reducer)
 
 console.log('main state', store.getState())
+console.log('notif from state', store.getState().notification)
 store.subscribe(() => console.log('main sub', store.getState()))
 
 

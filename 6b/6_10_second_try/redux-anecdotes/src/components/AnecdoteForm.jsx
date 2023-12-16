@@ -1,5 +1,6 @@
 import {createAnec} from '../reducers/anecdoteReducer'
 import { useSelector, useDispatch } from 'react-redux'
+import { notificationShow, notificationHide } from '../reducers/notificationReducer';
 
 const AnecdoteForm = () => {
 
@@ -10,6 +11,14 @@ const AnecdoteForm = () => {
         const content = event.target.anecdote.value
         event.target.anecdote.value = ''
         dispatch(createAnec(content))
+
+        // Display notification for 5 seconds
+        dispatch(notificationShow(`New anecdote added: "${content}"`));
+
+        // Automatically remove the notification after 5 seconds
+        setTimeout(() => {
+          dispatch(notificationHide());
+        }, 5000);
       }
 
     return (
